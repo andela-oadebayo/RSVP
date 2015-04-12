@@ -26,6 +26,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Adding Devise for authentication
 gem 'devise', github: 'plataformatec/devise'
 
+#for creating friendly URLs
+gem 'friendly_id', '5.0.0.beta1'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

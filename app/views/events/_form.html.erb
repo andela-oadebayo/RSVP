@@ -47,6 +47,11 @@
     <%= f.label :updated_at %><br>
     <%= f.datetime_select :updated_at %>
   </div>
+  <div class="field">
+    all_tags
+    <%= f.label :all_tags, "List All Tags,separate each tag by a comma"%><br />
+    <%= f.text_field :all_tags %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

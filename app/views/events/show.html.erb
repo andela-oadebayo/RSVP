@@ -44,6 +44,14 @@
   <strong>Updated at:</strong>
   <%= @event.updated_at %>
 </p>
+<%= event.all_tags %>
+
+<label>Organised By:</label>
+<% @event_owners.each do |event_owner|%>
+    <%= image_tag avatar_url(event_owner) %>
+    <%= event_owner.email %><br/>
+<% end %>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<%= link_to 'Back', events_path %><br/>
+

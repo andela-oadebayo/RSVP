@@ -1,15 +1,22 @@
 class EventsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :event_owner!, only: [:edit, :update, :destroy]
 
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    if params[:tag]
+      @events = Event.tagged_with(params[:tag])
+    else
+      @events = Event.all
+    end
   end
 
   # GET /events/1
   # GET /events/1.json
   def show
+    @event_owners = @event_organizers
   end
 
   # GET /events/new
@@ -24,7 +31,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(event_params)
+    @event = current_user.organized_events.new(event_params)
 
     respond_to do |format|
       if @event.save
@@ -69,6 +76,14 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :start_date, :end_date, :location, :agenda, :address, :organizer_id, :created_at, :updated_at)
+      params.require(:event).permit(:title, :start_date, :end_date, :location, :agenda, :address, :all_tags)
+    end
+
+    def event_owner!
+      authenticate_user!
+      if @event.organizer_id !=current_user.id!
+        redirect_to events_path
+        flash[:notice] = "You do not have enough permissions to do this"
+      end
     end
 end
