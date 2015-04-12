@@ -52,6 +52,8 @@
     <%= event_owner.email %><br/>
 <% end %>
 
+<%= link_to "Join", even_join_path(:event_id => @event.id), :class=>"btn btn-success btn-small" %>
+
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %><br/>
 

@@ -68,6 +68,12 @@ class EventsController < ApplicationController
     end
   end
 
+  def join
+    @attendance = Attendance.join_event(current_user.id, params[:event_id], 'request_Sent')
+    'Request Sent' if @attendance.save
+    respond_with @attendance
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
